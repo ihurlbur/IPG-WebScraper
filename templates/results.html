@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <title>Scraper Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+    <h2>Scraper Results</h2>
+    {% if articles %}
+        <ul class="list-group mt-3">
+            {% for article in articles %}
+                <li class="list-group-item">
+                    <strong>{{ article.date }}</strong> – 
+                    <a href="{{ article.link }}" target="_blank">{{ article.title }}</a><br>
+                    <small>Team: {{ article.team }} | Brand: {{ article.brand }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles found.</p>
+    {% endif %}
+    <a href="/" class="btn btn-primary mt-4">Back to Tracker</a>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hybrid Scraper - Manage Team & Brand Pairs</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        h1 { color: #333; }
+        form { margin-bottom: 1em; }
+        input[type="text"] {
+            padding: 0.5em;
+            margin-right: 0.5em;
+            width: 200px;
+        }
+        button {
+            padding: 0.5em 1em;
+            background-color: #1f77b4;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 0.3em 0; }
+    </style>
+</head>
+<body>
+    <h1>Team + Brand Tracker</h1>
+
+    <form method="POST" action="/">
+        <input type="text" name="team" placeholder="Team Name" required>
+        <input type="text" name="brand" placeholder="Brand Name" required>
+        <button type="submit">Add Pair</button>
+    </form>
+
+<form action="/run-scraper" method="post">
+    <button type="submit" class="btn btn-success">Run Scraper</button>
+</form>
+
+
+    <h2>Current Pairs:</h2>
+    <ul>
+        {% for pair in pairs %}
+            <li>{{ pair[0] }} – {{ pair[1] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
