@@ -28,10 +28,10 @@
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Tracked Pairs&lt;/h2&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>{% for pair in pairs %}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;{{ pair }}&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>{% endfor %}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{% for team, brand in pairs %}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;{{ team }} – {{ brand }}&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{% endfor %}</p>
+<p class="p1">&lt;/ul&gt;</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Run Scraper&lt;/h2&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;form method="POST" action="/run-scraper"&gt;</p>
