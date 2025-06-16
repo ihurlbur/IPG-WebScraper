@@ -1,46 +1,47 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-    <title>Hybrid Scraper - Manage Team & Brand Pairs</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        h1 { color: #333; }
-        form { margin-bottom: 1em; }
-        input[type="text"] {
-            padding: 0.5em;
-            margin-right: 0.5em;
-            width: 200px;
-        }
-        button {
-            padding: 0.5em 1em;
-            background-color: #1f77b4;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        ul { list-style-type: none; padding: 0; }
-        li { padding: 0.3em 0; }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
 </head>
 <body>
-    <h1>Team + Brand Tracker</h1>
-
-    <form method="POST" action="/">
-        <input type="text" name="team" placeholder="Team Name" required>
-        <input type="text" name="brand" placeholder="Brand Name" required>
-        <button type="submit">Add Pair</button>
-    </form>
-
-<form action="/run-scraper" method="post">
-    <button type="submit" class="btn btn-success">Run Scraper</button>
-</form>
-
-
-    <h2>Current Pairs:</h2>
-    <ul>
-        {% for pair in pairs %}
-            <li>{{ pair[0] }} – {{ pair[1] }}</li>
-        {% endfor %}
-    </ul>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;IPG Web Scraper&lt;/title&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;IPG Sponsorship Scraper&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;form method="POST" action="/"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" name="team" placeholder="Enter Team Name" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" name="brand" placeholder="Enter Brand Name" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button type="submit"&gt;Add Pair&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Tracked Pairs&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{% for pair in pairs %}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;{{ pair }}&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{% endfor %}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/ul&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Run Scraper&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;form method="POST" action="/run-scraper"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;Start Date:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="date" name="start_date"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;End Date:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="date" name="end_date"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button type="submit"&gt;Run Scraper&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
 </body>
 </html>
