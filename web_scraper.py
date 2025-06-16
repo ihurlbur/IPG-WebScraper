@@ -1,69 +1,52 @@
 import feedparser
 from datetime import datetime, timedelta
-import re
 import json
+import os
+
+PAIRS_FILE = "hybrid_pairs.txt"
+OUTPUT_FILE = "matched_articles.json"
+
+def load_pairs():
+    pairs = []
+    if os.path.exists(PAIRS_FILE):
+        with open(PAIRS_FILE, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line and "," in line:
+                    parts = [p.strip().lower() for p in line.split(",")]
+                    if len(parts) == 2:
+                        pairs.append(tuple(parts))
+    return pairs
 
 def run_scraper():
-    # Load team-brand pairs from text file
-    with open("hybrid_pairs.txt", "r") as f:
-        lines = f.readlines()
-        pairs = [tuple(line.strip().lower().split(", ")) for line in lines]
+    pairs = load_pairs()
+    all_matches = []
+    base_url = "https://news.google.com/rss/search?q={}+{}+sponsorship"
 
-    # Create a unique list of teams
-    teams = sorted(set(team for team, _ in pairs))
+    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
 
-    # Keywords to search alongside team names
-    keywords = ["sponsorship", "partnership", "deal", "agreement", "contract", "negotiation"]
+    for team, brand in pairs:
+        url = base_url.format(team.replace(" ", "+"), brand.replace(" ", "+"))
+        feed = feedparser.parse(url)
 
-    # Only include articles from the past 30 days
-    cutoff_date = datetime.now() - timedelta(days=30)
+        for entry in feed.entries:
+            try:
+                published = datetime(*entry.published_parsed[:6])
+            except AttributeError:
+                continue  # Skip if no date
 
-    # To avoid duplicates
-    seen = set()
-    matched_articles = []
-
-    for team in teams:
-        for keyword in keywords:
-            query = f"{team} {keyword}"
-            url = f"https://news.google.com/rss/search?q={query.replace(' ', '+')}"
-            feed = feedparser.parse(url)
-
-            for entry in feed.entries:
-                title = entry.get("title", "").strip()
-                summary = entry.get("summary", "").strip()
-                link = entry.get("link", "").strip()
-
-                try:
-                    pub_date = datetime(*entry.published_parsed[:6])
-                except Exception:
-                    continue
-
-                if pub_date < cutoff_date:
-                    continue
-
-                uid = (title.lower(), link)
-                if uid in seen:
-                    continue
-                seen.add(uid)
-
-                # Combine and sanitize title + summary
-                content = f"{title} {summary}".lower()
-                content = re.sub(r"[^\w\s]", "", content)
-
-                # Check for any matching team-brand pair in the content
-                for t, brand in pairs:
-                    if t in content and brand in content:
-                        matched_articles.append({
-                            "date": pub_date.strftime("%Y-%m-%d"),
-                            "team": t,
+            if published >= thirty_days_ago:
+                summary = entry.get("summary", "").lower()
+                title = entry.get("title", "").lower()
+                if team in summary or team in title:
+                    if brand in summary or brand in title:
+                        all_matches.append({
+                            "team": team,
                             "brand": brand,
-                            "title": title,
-                            "link": link
+                            "title": entry.title,
+                            "link": entry.link,
+                            "published": published.strftime("%Y-%m-%d")
                         })
-                        break  # avoid duplicate checks
 
-    # Save results
-    with open("matched_articles.json", "w") as f:
-        json.dump(matched_articles, f, indent=2)
-
-    return matched_articles
+    with open(OUTPUT_FILE, "w") as f:
+        json.dump(all_matches, f, indent=2)
