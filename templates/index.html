@@ -15,32 +15,61 @@
 <p class="p1">&lt;!DOCTYPE html&gt;</p>
 <p class="p1">&lt;html&gt;</p>
 <p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;IPG Web Scraper&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;IPG Web Scraper&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>form {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>input, button {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-right: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ul {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list-style-type: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-left: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>li {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>label {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-right: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
 <p class="p1">&lt;/head&gt;</p>
 <p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;IPG Sponsorship Scraper&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Team + Brand Tracker&lt;/h1&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;form method="POST" action="/"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" name="team" placeholder="Enter Team Name" required&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" name="brand" placeholder="Enter Brand Name" required&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button type="submit"&gt;Add Pair&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Add New Pair --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;form method="POST" action="/"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="text" name="team" placeholder="Team Name" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="text" name="brand" placeholder="Brand Name" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button type="submit"&gt;Add Pair&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/form&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Tracked Pairs&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Run Scraper --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;form method="POST" action="/run-scraper"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;Start Date:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="date" name="start_date"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;End Date:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="date" name="end_date"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button type="submit"&gt;Run Scraper&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/form&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Display Current Pairs --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h2&gt;Current Pairs:&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;ul&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>{% for team, brand in pairs %}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;{{ team }} – {{ brand }}&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;li&gt;{{ team }} – {{ brand }}&lt;/li&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>{% endfor %}</p>
-<p class="p1">&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Run Scraper&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;form method="POST" action="/run-scraper"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;Start Date:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="date" name="start_date"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;End Date:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="date" name="end_date"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button type="submit"&gt;Run Scraper&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/ul&gt;</p>
 <p class="p1">&lt;/body&gt;</p>
 <p class="p1">&lt;/html&gt;</p>
 </body>
