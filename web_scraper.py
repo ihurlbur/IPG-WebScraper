@@ -1,23 +1,3 @@
-import feedparser
-from datetime import datetime, timedelta
-import json
-import os
-
-PAIRS_FILE = "hybrid_pairs.txt"
-OUTPUT_FILE = "matched_articles.json"
-
-def load_pairs():
-    pairs = []
-    if os.path.exists(PAIRS_FILE):
-        with open(PAIRS_FILE, "r") as f:
-            for line in f:
-                line = line.strip()
-                if line and "," in line:
-                    parts = [p.strip().lower() for p in line.split(",")]
-                    if len(parts) == 2:
-                        pairs.append(tuple(parts))
-    return pairs
-
 def run_scraper():
     pairs = load_pairs()
     all_matches = []
@@ -38,6 +18,10 @@ def run_scraper():
             if published >= thirty_days_ago:
                 summary = entry.get("summary", "").lower()
                 title = entry.get("title", "").lower()
+
+                # 🔍 DEBUG PRINT
+                print(f"📝 Scanning: {title} | Summary: {summary}")
+
                 if team in summary or team in title:
                     if brand in summary or brand in title:
                         all_matches.append({
