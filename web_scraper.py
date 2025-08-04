@@ -18,17 +18,19 @@ def load_pairs():
                         pairs.append(tuple(parts))
     return pairs
 
-def run_scraper():
+def run_scraper(start_date=None, end_date=None):
     pairs = load_pairs()
     all_matches = []
     base_url = "https://news.google.com/rss/search?q={}+{}+sponsorship"
 
-    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+    try:
+        start_dt = datetime.strptime(start_date, "%Y-%m-%d") if start_date else datetime.utcnow() - timedelta(days=30)
+        end_dt = datetime.strptime(end_date, "%Y-%m-%d") if end_date else datetime.utcnow()
+    except ValueError:
+        raise ValueError("Dates must be in YYYY-MM-DD format.")
 
     for team, brand in pairs:
         url = base_url.format(team.replace(" ", "+"), brand.replace(" ", "+"))
-        print(f"🔍 Checking feed: {url}")  # Debug output
-
         feed = feedparser.parse(url)
 
         for entry in feed.entries:
@@ -37,15 +39,11 @@ def run_scraper():
             except AttributeError:
                 continue
 
-            if published >= thirty_days_ago:
+            if start_dt <= published <= end_dt:
                 summary = entry.get("summary", "").lower()
                 title = entry.get("title", "").lower()
-
-                print(f"→ Scanning: {entry.title}")  # Debug output
-
                 if team in summary or team in title:
                     if brand in summary or brand in title:
-                        print(f"✅ Match found for {team} + {brand}")  # Debug output
                         all_matches.append({
                             "team": team,
                             "brand": brand,
