@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ team.title() }} – {{ method.upper() }} Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6">{{ team.title() }} – {{ method.upper() }} Results</h1>
+
+        {% if articles %}
+            <ul class="space-y-4">
+                {% for article in articles %}
+                    <li class="border p-4 rounded">
+                        <strong>{{ article.team.title() }} × {{ article.brand.title() }}</strong><br>
+                        <a href="{{ article.link }}" class="text-blue-600 hover:underline" target="_blank">{{ article.title }}</a><br>
+                        <span class="text-sm text-gray-600">{{ article.published }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No articles found for this team using {{ method.upper() }}.</p>
+        {% endif %}
+
+        <div class="mt-6">
+            <a href="{{ url_for('results_type') }}" class="text-gray-600 hover:text-black">← Back to Results Overview</a>
+        </div>
+    </div>
+</body>
+</html>
