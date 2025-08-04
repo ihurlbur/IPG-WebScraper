@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ method.upper() }} Results – Teams</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6">{{ method.upper() }} Results – Teams</h1>
+
+        {% if teams %}
+            <ul class="list-disc ml-6 space-y-2">
+                {% for team in teams %}
+                    <li>
+                        <a href="{{ url_for('show_articles', method=method, team=team) }}" class="text-blue-600 hover:underline">
+                            {{ team.title() }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No teams with results for this method.</p>
+        {% endif %}
+
+        <div class="mt-6">
+            <a href="{{ url_for('results_type') }}" class="text-gray-600 hover:text-black">← Back to Results Overview</a>
+        </div>
+    </div>
+</body>
+</html>

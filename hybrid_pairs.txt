@@ -1,12 +1,5 @@
-la galaxy, coca cola
-la galaxy, red bull
-la galaxy, tylenol
-angel city, bmo
-angel city, red bull
 barcelona, spotify
-barcelona, coca cola
-nwsl, tylenol
-nwsl, red bull
-la galaxy, international money express
-la galaxy, intermex
-cadillac, tommy hilfiger
+supermotocross,monster energy
+oc vibe,concordia
+mls,red bull
+ocvibe,concordia

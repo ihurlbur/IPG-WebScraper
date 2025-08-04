@@ -1,52 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>IPG Web Scraper</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    h1 { color: #333; }
-    form { margin-bottom: 20px; }
-    input, button { padding: 8px; margin-right: 10px; font-size: 16px; }
-    ul { list-style-type: none; padding-left: 0; }
-    li { margin-bottom: 5px; }
-    label { margin-right: 8px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>IPG WebScraper</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Team + Brand Tracker</h1>
+<body class="bg-gray-100 text-gray-900 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4">IPG WebScraper</h1>
 
-  <!-- Add New Pair -->
-  <form method="POST" action="/">
-    <input type="text" name="team" placeholder="Team Name" required>
-    <input type="text" name="brand" placeholder="Brand Name" required>
-    <button type="submit">Add Pair</button>
-  </form>
+        <!-- Add Pair -->
+        <form action="/add-pair" method="post" class="flex space-x-2 mb-4">
+            <input type="text" name="team" placeholder="Team" required class="flex-1 p-2 border rounded">
+            <input type="text" name="brand" placeholder="Brand" required class="flex-1 p-2 border rounded">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Pair</button>
+        </form>
 
-  <!-- Run Scraper -->
-  <form method="POST" action="/run-scraper">
-    <label>Start Date:</label>
-    <input type="date" name="start_date">
-    <label>End Date:</label>
-    <input type="date" name="end_date">
-    <button type="submit">Run Scraper</button>
-  </form>
+        <!-- Run Scraper -->
+        <form action="/run-scraper" method="post" class="space-y-2 mb-6">
+            <div class="flex space-x-2">
+                <input type="date" name="start_date" class="p-2 border rounded">
+                <input type="date" name="end_date" class="p-2 border rounded">
+                <select name="search_method" class="p-2 border rounded" required>
+                    <option value="rss" {% if selected_method == 'rss' %}selected{% endif %}>RSS Only</option>
+                    <option value="serpapi" {% if selected_method == 'serpapi' %}selected{% endif %}>SerpAPI Only</option>
+                    <option value="both" {% if selected_method == 'both' %}selected{% endif %}>Both</option>
+                </select>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Run Scraper</button>
+            </div>
+        </form>
 
-  <!-- Display Current Pairs -->
-  <h2>Current Pairs:</h2>
-<ul style="padding-left: 0;">
-  {% for pair in pairs %}
-    {% set parts = pair.split(',') %}
-    <li style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; margin-bottom: 8px;">
-      <span>{{ parts[0] }} - {{ parts[1] }}</span>
-      <form method="POST" action="/remove-pair" style="margin: 0;">
-        <input type="hidden" name="pair" value="{{ pair }}">
-        <button type="submit">Remove</button>
-      </form>
-    </li>
-  {% endfor %}
-</ul>
+        <!-- Pair List -->
+        <h2 class="text-xl font-semibold mt-4 mb-2">Current Pairs:</h2>
+        <ul class="space-y-2 ml-4">
+            {% for team, brand in pairs %}
+                <li class="flex justify-between items-center border-b pb-1">
+                    <span>{{ team.title() }} × {{ brand.title() }}</span>
+                    <form action="/remove-pair" method="post">
+                        <input type="hidden" name="pair" value="{{ team }},{{ brand }}">
+                        <button type="submit" class="text-red-500 hover:text-red-700">Remove</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Results -->
+        {% if articles %}
+            <h2 class="text-xl font-semibold mt-6 mb-2">Matched Articles:</h2>
+            <ul class="space-y-2 ml-4">
+                {% for article in articles %}
+                    <li class="border p-3 rounded">
+                        <strong>{{ article.team.title() }} × {{ article.brand.title() }}</strong><br>
+                        <a href="{{ article.link }}" class="text-blue-600 hover:underline" target="_blank">{{ article.title }}</a><br>
+                        <span class="text-sm text-gray-600">{{ article.published }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 </body>
 </html>
-
-
 
