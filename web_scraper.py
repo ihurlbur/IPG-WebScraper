@@ -24,7 +24,7 @@ def run_scraper(start_date=None, end_date=None):
     base_url = "https://news.google.com/rss/search?q={}+{}+sponsorship"
 
     try:
-        start_dt = datetime.strptime(start_date, "%Y-%m-%d") if start_date else datetime.utcnow() - timedelta(days=30)
+        start_dt = datetime.strptime(start_date, "%Y-%m-%d") if start_date else datetime.utcnow() - timedelta(days=180)
         end_dt = datetime.strptime(end_date, "%Y-%m-%d") if end_date else datetime.utcnow()
     except ValueError:
         raise ValueError("Dates must be in YYYY-MM-DD format.")
