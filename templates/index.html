@@ -43,20 +43,20 @@
                 </li>
             {% endfor %}
         </ul>
+<!-- Results -->
+{% if articles %}
+    <h2 class="text-xl font-semibold mt-6 mb-2">Matched Articles:</h2>
+    <ul class="space-y-2 ml-4">
+        {% for article in articles %}
+            <li class="border p-3 rounded">
+                <strong>{{ article.team.title() }} × {{ article.brand.title() }}</strong><br>
+                <a href="{{ article.link }}" class="text-blue-600 hover:underline" target="_blank">{{ article.title }}</a><br>
+                <span class="text-sm text-gray-600">{{ article.published }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
-        <!-- Results -->
-        {% if articles %}
-            <h2 class="text-xl font-semibold mt-6 mb-2">Matched Articles:</h2>
-            <ul class="space-y-2 ml-4">
-                {% for article in articles %}
-                    <li class="border p-3 rounded">
-                        <strong>{{ article.team.title() }} × {{ article.brand.title() }}</strong><br>
-                        <a href="{{ article.link }}" class="text-blue-600 hover:underline" target="_blank">{{ article.title }}</a><br>
-                        <span class="text-sm text-gray-600">{{ article.published }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
     </div>
 </body>
 </html>
