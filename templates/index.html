@@ -21,11 +21,11 @@
             <div class="flex space-x-2">
                 <input type="date" name="start_date" class="p-2 border rounded">
                 <input type="date" name="end_date" class="p-2 border rounded">
-                <select name="search_method" class="p-2 border rounded" required>
-                    <option value="rss" {% if selected_method == 'rss' %}selected{% endif %}>RSS Only</option>
-                    <option value="serpapi" {% if selected_method == 'serpapi' %}selected{% endif %}>SerpAPI Only</option>
-                    <option value="both" {% if selected_method == 'both' %}selected{% endif %}>Both</option>
-                </select>
+<select name="search_method" class="p-2 border rounded" required>
+    <option value="rss" {% if selected_method == 'rss' %}>RSS</option>
+    <option value="serpapi" {% if selected_method == 'serpapi' %}>Google Search</option>
+    <option value="both" {% if selected_method == 'both' or not selected_method %}selected{% endif %}>Both</option>
+</select>
                 <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Run Scraper</button>
             </div>
         </form>

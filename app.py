@@ -58,7 +58,7 @@ def remove_pair_route():
 def run_scraper_route():
     start_date = request.form.get("start_date")
     end_date = request.form.get("end_date")
-    method = request.form.get("search_method", "rss")
+    method = request.form.get("search_method", "both")
     session["search_method"] = method
 
     try:
