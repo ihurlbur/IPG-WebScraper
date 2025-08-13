@@ -21,11 +21,11 @@
             <div class="flex space-x-2">
                 <input type="date" name="start_date" class="p-2 border rounded">
                 <input type="date" name="end_date" class="p-2 border rounded">
-<select name="search_method" class="p-2 border rounded" required>
-    <option value="rss" {% if selected_method == 'rss' %}>RSS</option>
-    <option value="serpapi" {% if selected_method == 'serpapi' %}>Google Search</option>
-    <option value="both" {% if selected_method == 'both' or not selected_method %}selected{% endif %}>Both</option>
-</select>
+                <select name="search_method" class="p-2 border rounded" required>
+                    <option value="rss" {% if selected_method == 'rss' %}>RSS</option>
+                    <option value="serpapi" {% if selected_method == 'serpapi' %}>Google Search</option>
+                    <option value="both" {% if selected_method == 'both' or not selected_method %}selected{% endif %}>Both</option>
+                </select>
                 <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Run Scraper</button>
             </div>
         </form>
@@ -43,21 +43,20 @@
                 </li>
             {% endfor %}
         </ul>
-<!-- Results -->
-{% if articles %}
-    <h2 class="text-xl font-semibold mt-6 mb-2">Matched Articles:</h2>
-    <ul class="space-y-2 ml-4">
-        {% for article in articles %}
-            <li class="border p-3 rounded">
-                <strong>{{ article.team.title() }} × {{ article.brand.title() }}</strong><br>
-                <a href="{{ article.link }}" class="text-blue-600 hover:underline" target="_blank">{{ article.title }}</a><br>
-                <span class="text-sm text-gray-600">{{ article.published }}</span>
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
 
+        <!-- Results -->
+        {% if articles %}
+            <h2 class="text-xl font-semibold mt-6 mb-2">Matched Articles:</h2>
+            <ul class="space-y-2 ml-4">
+                {% for article in articles %}
+                    <li class="border p-3 rounded">
+                        <strong>{{ article.team.title() }} × {{ article.brand.title() }}</strong><br>
+                        <a href="{{ article.link }}" class="text-blue-600 hover:underline" target="_blank">{{ article.title }}</a><br>
+                        <span class="text-sm text-gray-600">{{ article.published }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </body>
 </html>
-
