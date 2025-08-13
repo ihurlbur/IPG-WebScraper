@@ -32,7 +32,8 @@ def remove_pair(pair_to_remove):
             lines = f.readlines()
         with open(PAIRS_FILE, "w") as f:
             for line in lines:
-                if line.strip().lower() != pair_to_remove.lower():
+                clean_line = line.strip().lower()
+                if clean_line and clean_line != pair_to_remove.strip().lower():
                     f.write(line)
 
 @app.route("/", methods=["GET"])
