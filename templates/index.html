@@ -31,18 +31,19 @@
         </form>
 
         <!-- Pair List -->
-        <h2 class="text-xl font-semibold mt-4 mb-2">Current Pairs:</h2>
-        <ul class="space-y-2 ml-4">
-            {% for team, brand in pairs %}
-                <li class="flex justify-between items-center border-b pb-1">
-                    <span>{{ team.title() }} × {{ brand.title() }}</span>
-                    <form action="/remove-pair" method="post">
-                        <input type="hidden" name="pair" value="{{ team }},{{ brand }}">
-                        <button type="submit" class="text-red-500 hover:text-red-700">Remove</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
+<!-- Pair List -->
+<h2 class="text-xl font-semibold mt-4 mb-2">Current Pairs:</h2>
+<ul class="space-y-2 ml-4">
+    {% for team, brand in pairs %}
+        <form action="/remove-pair" method="post">
+            <li class="flex justify-between items-center border-b pb-1">
+                <span>{{ team.title() }} × {{ brand.title() }}</span>
+                <input type="hidden" name="pair" value="{{ team }},{{ brand }}">
+                <button type="submit" class="text-red-500 hover:text-red-700">Remove</button>
+            </li>
+        </form>
+    {% endfor %}
+</ul>
 
         <!-- Results -->
         {% if articles %}
