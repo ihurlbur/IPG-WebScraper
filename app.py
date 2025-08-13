@@ -29,16 +29,17 @@ def save_pair(team, brand):
 def remove_pair(pair_to_remove):
     if os.path.exists(PAIRS_FILE):
         with open(PAIRS_FILE, "r") as f:
-            lines = f.read().splitlines()  # Safer than readlines()
-        
-        pair_to_remove = pair_to_remove.strip().lower()
-        updated_lines = []
+            lines = f.read().splitlines()
 
+        # Normalize both sides: lowercase + remove all spaces around commas
+        normalized_remove = ','.join([x.strip().lower() for x in pair_to_remove.split(',')])
+
+        updated_lines = []
         for line in lines:
-            if line.strip().lower() != pair_to_remove:
+            normalized_line = ','.join([x.strip().lower() for x in line.split(',')])
+            if normalized_line != normalized_remove:
                 updated_lines.append(line.strip())
 
-        # Rewrite the file with clean lines
         with open(PAIRS_FILE, "w") as f:
             for line in updated_lines:
                 f.write(line + "\n")
