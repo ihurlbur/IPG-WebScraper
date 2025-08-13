@@ -29,13 +29,20 @@ def save_pair(team, brand):
 def remove_pair(pair_to_remove):
     if os.path.exists(PAIRS_FILE):
         with open(PAIRS_FILE, "r") as f:
-            lines = f.readlines()
+            lines = f.read().splitlines()  # Safer than readlines()
+        
         pair_to_remove = pair_to_remove.strip().lower()
+        updated_lines = []
+
+        for line in lines:
+            if line.strip().lower() != pair_to_remove:
+                updated_lines.append(line.strip())
+
+        # Rewrite the file with clean lines
         with open(PAIRS_FILE, "w") as f:
-            for line in lines:
-                clean_line = line.strip().lower()
-                if clean_line and clean_line != pair_to_remove:
-                    f.write(line + "\n")  # Ensure each line ends with newline
+            for line in updated_lines:
+                f.write(line + "\n")
+
 
 @app.route("/", methods=["GET"])
 def index():
