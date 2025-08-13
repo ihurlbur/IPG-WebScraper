@@ -38,7 +38,8 @@ def remove_pair(pair_to_remove):
 @app.route("/", methods=["GET"])
 def index():
     pairs = load_pairs()
-    return render_template("index.html", pairs=pairs)
+    selected_method = session.get("search_method", "both")
+    return render_template("index.html", pairs=pairs, articles=[], selected_method=selected_method)
 
 @app.route("/add-pair", methods=["POST"])
 def add_pair():
