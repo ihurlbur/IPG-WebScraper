@@ -30,11 +30,12 @@ def remove_pair(pair_to_remove):
     if os.path.exists(PAIRS_FILE):
         with open(PAIRS_FILE, "r") as f:
             lines = f.readlines()
+        pair_to_remove = pair_to_remove.strip().lower()
         with open(PAIRS_FILE, "w") as f:
             for line in lines:
                 clean_line = line.strip().lower()
-                if clean_line and clean_line != pair_to_remove.strip().lower():
-                    f.write(line)
+                if clean_line and clean_line != pair_to_remove:
+                    f.write(line + "\n")  # Ensure each line ends with newline
 
 @app.route("/", methods=["GET"])
 def index():
