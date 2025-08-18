@@ -124,16 +124,16 @@ def show_articles(method, team):
 
     from datetime import datetime
 
-team_articles = [
-    a for a in articles 
-    if a["team"].lower() == team.lower()
-]
+    team_articles = [
+        a for a in articles 
+        if a["team"].lower() == team.lower()
+    ]
 
-# Convert and sort by date (if 'published' exists)
-team_articles.sort(
-    key=lambda x: datetime.strptime(x["published"], "%Y-%m-%d") if x.get("published") else datetime.min,
-    reverse=True
-)
+    # Convert and sort by date (if 'published' exists)
+    team_articles.sort(
+        key=lambda x: datetime.strptime(x["published"], "%Y-%m-%d") if x.get("published") else datetime.min,
+        reverse=True
+    )
 
     return render_template("articles.html", team=team, articles=team_articles, method=method)
 
