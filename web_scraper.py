@@ -81,24 +81,39 @@ def run_serpapi_search(start_date=None, end_date=None):
             title = result.get("title", "")
             snippet = result.get("snippet", "")
             link = result.get("link", "")
-            date_str = result.get("date", "")
 
             if not title or not link:
                 continue
 
             if team.lower() in (title + snippet).lower() and brand.lower() in (title + snippet).lower():
+                # Try to extract and standardize the date
+                date_str = (
+                    result.get("date") or
+                    result.get("date_published") or
+                    result.get("snippet_date") or
+                    ""
+                )
+
                 published = ""
-                try:
-                    if start_date or end_date:
-                        if date_str:
-                            published_date = datetime.strptime(date_str, "%b %d, %Y").date()
-                            if start_date and published_date < datetime.strptime(start_date, "%Y-%m-%d").date():
-                                continue
-                            if end_date and published_date > datetime.strptime(end_date, "%Y-%m-%d").date():
-                                continue
+                if date_str:
+                    for fmt in ("%b %d, %Y", "%Y-%m-%d", "%d %b %Y"):
+                        try:
+                            published_date = datetime.strptime(date_str, fmt).date()
                             published = published_date.strftime("%Y-%m-%d")
-                except:
-                    pass  # fallback to blank publish date if formatting fails
+                            break
+                        except ValueError:
+                            continue
+
+                # Optionally filter by date range
+                if published and (start_date or end_date):
+                    try:
+                        parsed_pub = datetime.strptime(published, "%Y-%m-%d").date()
+                        if start_date and parsed_pub < datetime.strptime(start_date, "%Y-%m-%d").date():
+                            continue
+                        if end_date and parsed_pub > datetime.strptime(end_date, "%Y-%m-%d").date():
+                            continue
+                    except:
+                        pass
 
                 results.append({
                     "team": team.title(),
@@ -132,4 +147,3 @@ def run_scraper(start_date=None, end_date=None, method="rss"):
             "serp": [],
             "error": f"Invalid method: {method}"
         }
-
